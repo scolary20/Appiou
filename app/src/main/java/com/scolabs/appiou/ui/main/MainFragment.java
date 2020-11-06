@@ -31,7 +31,7 @@ import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
 
-public class MainFragment extends Fragment implements View.OnClickListener {
+public class MainFragment extends Fragment implements View.OnClickListener, Authentication {
 
     public static String ACCOUNT_EXTRA = "ACCOUNT_DETAILS";
     public static int SELECTION_REQUEST_CODE = 2000;
@@ -73,7 +73,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                     mViewModel.locationInformation = locationInformation;
                     updateUI();
                 } else {
+                    getGoogleSignInClient(getContext()).signOut();
                     Toast.makeText(getContext(), "Required Information is missing", Toast.LENGTH_SHORT).show();
+                    getActivity().finish();
                 }
             }
         });
